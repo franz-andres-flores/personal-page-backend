@@ -5,6 +5,7 @@ import { DatabaseMysqlProviderModule } from './common/db/mysql/mysql.provider';
 import { AuthorizationJWTProvider } from './common/authorization/jwt/jwt.provider';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { JobsModule } from './jobs/jobs.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
     
     AuthModule,
     UserModule,
+    JobsModule,
   ],
   controllers: [],
   providers: [],
