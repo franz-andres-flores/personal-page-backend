@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { JobsModule } from './jobs/jobs.module';
 import { StudiesModule } from './studies/studies.module';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { StudiesModule } from './studies/studies.module';
     UserModule,
     JobsModule,
     StudiesModule,
+    CoursesModule,
   ],
   controllers: [],
   providers: [],
