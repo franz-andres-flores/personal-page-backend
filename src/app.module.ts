@@ -6,6 +6,7 @@ import { AuthorizationJWTProvider } from './common/authorization/jwt/jwt.provide
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { JobsModule } from './jobs/jobs.module';
+import { StudiesModule } from './studies/studies.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { JobsModule } from './jobs/jobs.module';
     AuthModule,
     UserModule,
     JobsModule,
+    StudiesModule,
   ],
   controllers: [],
   providers: [],
