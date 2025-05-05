@@ -9,6 +9,7 @@ import { JobsModule } from './jobs/jobs.module';
 import { StudiesModule } from './studies/studies.module';
 import { CoursesModule } from './courses/courses.module';
 import { CategoriesModule } from './categories/categories.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CategoriesModule } from './categories/categories.module';
     StudiesModule,
     CoursesModule,
     CategoriesModule,
+    ProjectsModule,
   ],
   controllers: [],
   providers: [],
