@@ -10,6 +10,7 @@ import { StudiesModule } from './studies/studies.module';
 import { CoursesModule } from './courses/courses.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProjectsModule } from './projects/projects.module';
+import { SectionModule } from './section/section.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ProjectsModule } from './projects/projects.module';
     CoursesModule,
     CategoriesModule,
     ProjectsModule,
+    SectionModule,
   ],
   controllers: [],
   providers: [],

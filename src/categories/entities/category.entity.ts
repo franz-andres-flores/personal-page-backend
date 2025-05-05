@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 import { DBLength } from "src/common/db/enums";
+import { Section } from "src/section/entities/section.entity";
 
 @Entity({ name: 'categories' })
 export class Category {
@@ -10,7 +11,7 @@ export class Category {
     id: number;
 
     @Column({ type: 'varchar', length: DBLength.name })
-    @ApiProperty({ example: 'Universidad Nacional de Loja' })
+    @ApiProperty({ example: 'Node Js' })
     name: string;
 
     @Column({ type: 'varchar', length: DBLength.path, nullable: true })
@@ -36,4 +37,7 @@ export class Category {
     @UpdateDateColumn({ comment: 'Fecha y hora de modificación' })
     @ApiPropertyOptional({ example: '2024-10-10 12:30:00' })
     updated_at: Date | string;
+
+    @OneToMany(() => Section, section => section.category)
+    sections: Section[];
 }
