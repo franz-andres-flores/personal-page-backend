@@ -1,12 +1,11 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 import { DBLength } from "src/common/db/enums";
-import { Category } from "src/categories/entities/category.entity";
-import { Publication } from "src/publications/entities/publication.entity";
+import { Section } from "src/section/entities/section.entity";
 
-@Entity({ name: 'sections' })
-export class Section {
+@Entity({ name: 'publications' })
+export class Publication {
     @PrimaryGeneratedColumn()
     @ApiProperty({ example: 1 })
     id: number;
@@ -14,6 +13,10 @@ export class Section {
     @Column({ type: 'varchar', length: DBLength.name })
     @ApiProperty({ example: 'Event Loop en Node JS' })
     name: string;
+
+    @Column({ type: 'datetime' })
+    @ApiProperty({ example: '2025-04-01' })
+    date: Date | string;
 
     @Column({ type: 'varchar', length: DBLength.description, nullable: true })
     @ApiPropertyOptional({ example: 'Descripción de la sección realizada' })
@@ -31,10 +34,7 @@ export class Section {
     @ApiPropertyOptional({ example: '2024-10-10 12:30:00' })
     updated_at: Date | string;
 
-    @ManyToOne(() => Category, category => category.sections)
-    @JoinColumn({ name: "category_id" })
-    category: Category;
-
-    @OneToMany(() => Publication, publication => publication.section)
-    publications: Publication[];
+    @ManyToOne(() => Section, section => section.publications)
+    @JoinColumn({ name: 'section_id' })
+    section: Section;
 }

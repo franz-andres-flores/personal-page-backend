@@ -11,6 +11,7 @@ import { CoursesModule } from './courses/courses.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProjectsModule } from './projects/projects.module';
 import { SectionModule } from './section/section.module';
+import { PublicationsModule } from './publications/publications.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { SectionModule } from './section/section.module';
     CategoriesModule,
     ProjectsModule,
     SectionModule,
+    PublicationsModule,
   ],
   controllers: [],
   providers: [],
