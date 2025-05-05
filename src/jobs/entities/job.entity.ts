@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 import { DBLength } from "src/common/db/enums";
+import { JobTechnology } from "../interfaces/job-technology.interface";
 
 @Entity({ name: 'jobs' })
 export class Job {
@@ -36,6 +37,10 @@ export class Job {
     @Column({ type: 'text', nullable: true })
     @ApiPropertyOptional({ example: 'Descripción del trabajo' })
     description: string;
+
+    @Column({type: 'json', nullable: true})
+    @ApiPropertyOptional({ example: '[{ name: "Nest JS" }]' })
+    technologies: JobTechnology;
 
     @Column({ type: 'boolean', default: true })
     @ApiPropertyOptional({ example: true, default: true })

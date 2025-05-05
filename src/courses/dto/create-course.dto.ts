@@ -10,7 +10,7 @@ export class CreateCourseDto {
 
     @IsNotEmpty({ message: requiredMessage('institución') })
     @ApiProperty({ example: 'Universidad Nacional de Loja' })
-    school: string;
+    institution: string;
 
     @IsNotEmpty({ message: requiredMessage('Fecha de culminación') })
     @ApiProperty({ example: '2025-04-01' })

@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { JobsModule } from './jobs/jobs.module';
 import { StudiesModule } from './studies/studies.module';
 import { CoursesModule } from './courses/courses.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CoursesModule } from './courses/courses.module';
     JobsModule,
     StudiesModule,
     CoursesModule,
+    CategoriesModule,
   ],
   controllers: [],
   providers: [],

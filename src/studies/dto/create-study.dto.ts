@@ -6,11 +6,11 @@ import { requiredMessage } from "src/common/constants";
 export class CreateStudyDto {
     @IsNotEmpty({ message: requiredMessage('institución') })
     @ApiProperty({ example: 'Universidad Nacional de Loja' })
-    school: string;
+    institution: string;
 
     @IsNotEmpty({ message: requiredMessage('carrera') })
     @ApiProperty({ example: 'Ingeniería en Sistemas' })
-    carrer: string;
+    degree: string;
 
     @IsNotEmpty({ message: requiredMessage('año de inicio') })
     @ApiProperty({ example: '2025' })

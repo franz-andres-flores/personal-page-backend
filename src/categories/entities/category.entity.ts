@@ -3,35 +3,27 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 import { DBLength } from "src/common/db/enums";
 
-@Entity({ name: 'courses' })
-export class Course {
+@Entity({ name: 'categories' })
+export class Category {
     @PrimaryGeneratedColumn()
     @ApiProperty({ example: 1 })
     id: number;
 
     @Column({ type: 'varchar', length: DBLength.name })
     @ApiProperty({ example: 'Universidad Nacional de Loja' })
-    institution: string;
+    name: string;
 
-    @Column({ type: 'varchar', length: DBLength.name })
-    @ApiProperty({ example: 'Curso de Nest JS' })
-    title: string;
+    @Column({ type: 'varchar', length: DBLength.path, nullable: true })
+    @ApiPropertyOptional({ name: 'node.jpg' })
+    image: string;
 
-    @Column({ type: 'date' })
-    @ApiProperty({ example: '2025-04-01' })
-    date: string;
+    @Column({ type: 'varchar', length: DBLength.path, nullable: true })
+    @ApiPropertyOptional({ name: 'Agdfsdj' })
+    imagePublicId: string;
 
     @Column({ type: 'text', nullable: true })
     @ApiPropertyOptional({ example: 'Descripción del curso realizado' })
     description: string;
-
-    @Column({ type: 'varchar', length: DBLength.path, nullable: true })
-    @ApiPropertyOptional({ example: '/assets/courses' })
-    certificate_path: string;
-
-    @Column({ type: 'varchar', length: DBLength.name, nullable: true })
-    @ApiPropertyOptional({ example: 'nest.pdf' })
-    certicate_name: string;
 
     @Column({ type: 'boolean', default: true })
     @ApiPropertyOptional({ example: true, default: true })

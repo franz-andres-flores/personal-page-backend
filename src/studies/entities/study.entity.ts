@@ -11,11 +11,11 @@ export class Study {
 
     @Column({ type: 'varchar', length: DBLength.name })
     @ApiProperty({ example: 'Universidad Nacional de Loja' })
-    school: string;
+    institution: string;
 
     @Column({ type: 'varchar', length: DBLength.name })
     @ApiProperty({ example: 'Ingeniería en Sistemas' })
-    carrer: string;
+    degree: string;
 
     @Column({ type: 'varchar', length: DBLength.name })
     @ApiProperty({ example: '2025' })
@@ -28,6 +28,14 @@ export class Study {
     @Column({ type: 'text', nullable: true })
     @ApiPropertyOptional({ example: 'Descripción de la carrera o estudio realizado' })
     description: string;
+
+    @Column({ type: 'varchar', length: DBLength.path, nullable: true })
+    @ApiPropertyOptional({ example: '/assets/studies' })
+    certificate_path: string;
+
+    @Column({ type: 'varchar', length: DBLength.name, nullable: true })
+    @ApiPropertyOptional({ example: 'degree.pdf' })
+    certicate_name: string;
 
     @Column({ type: 'boolean', default: true })
     @ApiPropertyOptional({ example: true, default: true })
