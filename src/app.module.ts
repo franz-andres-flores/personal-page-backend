@@ -12,6 +12,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { ProjectsModule } from './projects/projects.module';
 import { SectionModule } from './section/section.module';
 import { PublicationsModule } from './publications/publications.module';
+import { BlocksModule } from './blocks/blocks.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PublicationsModule } from './publications/publications.module';
     ProjectsModule,
     SectionModule,
     PublicationsModule,
+    BlocksModule,
   ],
   controllers: [],
   providers: [],

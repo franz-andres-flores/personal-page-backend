@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 import { DBLength } from "src/common/db/enums/db-lengths";
+import { UserRole } from "src/common/enums";
 
 @Entity({ name: 'users' })
 export class User {
@@ -24,6 +25,10 @@ export class User {
     @Column({ type: 'varchar', length: DBLength.password })
     @ApiProperty({ example: 'Franz123' })
     password: string;
+
+    @Column({ type: 'enum', enum: UserRole, default: UserRole.ADMIN })
+    @ApiProperty({ example: UserRole.ADMIN })
+    role: UserRole;
 
     @Column({ type: 'boolean', default: true })
     @ApiPropertyOptional({ example: true, default: true })

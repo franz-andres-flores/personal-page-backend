@@ -1,8 +1,9 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 import { DBLength } from "src/common/db/enums";
 import { Section } from "src/section/entities/section.entity";
+import { Block } from "src/blocks/entities/block.entity";
 
 @Entity({ name: 'publications' })
 export class Publication {
@@ -37,4 +38,7 @@ export class Publication {
     @ManyToOne(() => Section, section => section.publications)
     @JoinColumn({ name: 'section_id' })
     section: Section;
+
+    @OneToMany(() => Block, (block) => block.publication)
+    blocks: Block[];
 }
