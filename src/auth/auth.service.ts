@@ -2,8 +2,9 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UserService } from 'src/user/user.service';
-import { SignInDto } from './dto/auth.dto';
+import { RefreshTokenDto, SignInDto, ValidateTokenDto } from './dto/auth.dto';
 import { comparePasswords } from 'src/common/utilities';
+import { JwtPayload } from './interfaces/payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -28,11 +29,12 @@ export class AuthService {
                 throw new UnauthorizedException('El usuario o contraseña es incorrecta');
             }
 
-            const payload = {
+            const payload: JwtPayload = {
                 id: user.user.id,
                 firstName: user.user.firstName,
                 lastName: user.user.lastName,
-                email: user.user.email
+                email: user.user.email,
+                role: user.user.role
             }
 
             return {
@@ -42,6 +44,37 @@ export class AuthService {
         } catch (error) {
             console.log(error);
             throw error;
+        }
+    }
+
+    async validateToken(validateTokenDto: ValidateTokenDto) {
+        try {
+            const validateToken = this.jwtService.verify(validateTokenDto.token);
+            return { status: (validateToken) ? true : false };
+        } catch (error) {
+            return false;
+        }
+    }
+
+    async refreshToken(refreshTokenDto: RefreshTokenDto) {
+        try {
+            const user = await this.userService.findOne(refreshTokenDto.idUser);
+            const payload: JwtPayload = {
+                id: user.user.id,
+                firstName: user.user.firstName,
+                lastName: user.user.lastName,
+                email: user.user.email,
+                role: user.user.role
+            }
+
+            const token = this.jwtService.sign(payload);
+
+            return {
+                user: payload,
+                token: token
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 }

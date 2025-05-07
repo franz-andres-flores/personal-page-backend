@@ -42,12 +42,21 @@ export class UserService {
     }
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findOne(user_id: number) {
+    try {
+      const user = await this.userRepository.findOne({
+        where: { id: user_id }
+      });
+
+      return { user };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findAll() {
+    return `This action returns all user`;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
