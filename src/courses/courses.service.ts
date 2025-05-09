@@ -44,19 +44,19 @@ export class CoursesService {
         );
       }
 
-      if (params.active == 'true' && params.inactive == 'false') {
-        query.andWhere(`(c.isActive = :val)`, { val: true });
-      }
+      // if (params.active == 'true' && params.inactive == 'false') {
+      //   query.andWhere(`(c.isActive = :val)`, { val: true });
+      // }
 
-      if (params.inactive == 'true' && params.active == 'false') {
-        query.andWhere(`(c.isActive = :val1)`, { val1: false });
-      }
+      // if (params.inactive == 'true' && params.active == 'false') {
+      //   query.andWhere(`(c.isActive = :val1)`, { val1: false });
+      // }
 
-      if (params.inactive == 'true' && params.active == 'true') {
-        query.andWhere(`(c.isActive = :active OR c.isActive = :inactive)`, { active: true, inactive: false });
-      }
+      // if (params.inactive == 'true' && params.active == 'true') {
+      //   query.andWhere(`(c.isActive = :active OR c.isActive = :inactive)`, { active: true, inactive: false });
+      // }
 
-      const desc = (params.descending == 'true') ? 'DESC' : 'ASC';
+      const desc = (params.descending) ? 'DESC' : 'ASC';
       const sort = `c.${params.sort_by}`;
       query.orderBy(sort, desc);
 

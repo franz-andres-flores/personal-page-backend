@@ -13,6 +13,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
             console.log("error", err, admin);
             throw new UnauthorizedException('No existe el token');
         }
+
         return admin;
     }
 }

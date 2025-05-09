@@ -1,7 +1,7 @@
 export enum DBLength {
     name = 50,
     email = 60,
-    password = 40,
+    password = 70,
     path = 100,
     description = 120
 }

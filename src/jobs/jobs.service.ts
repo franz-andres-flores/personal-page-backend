@@ -44,19 +44,19 @@ export class JobsService {
         );
       }
 
-      if (params.active == 'true' && params.inactive == 'false') {
-        query.andWhere(`(j.isActive = :val)`, { val: true });
-      }
+      // if (params.active == 'true' && params.inactive == 'false') {
+      //   query.andWhere(`(j.isActive = :val)`, { val: true });
+      // }
 
-      if (params.inactive == 'true' && params.active == 'false') {
-        query.andWhere(`(j.isActive = :val1)`, { val1: false });
-      }
+      // if (params.inactive == 'true' && params.active == 'false') {
+      //   query.andWhere(`(j.isActive = :val1)`, { val1: false });
+      // }
 
-      if (params.inactive == 'true' && params.active == 'true') {
-        query.andWhere(`(j.isActive = :active OR j.isActive = :inactive)`, { active: true, inactive: false });
-      }
+      // if (params.inactive == 'true' && params.active == 'true') {
+      //   query.andWhere(`(j.isActive = :active OR j.isActive = :inactive)`, { active: true, inactive: false });
+      // }
 
-      const desc = (params.descending == 'true') ? 'DESC' : 'ASC';
+      const desc = (params.descending) ? 'DESC' : 'ASC';
       const sort = `j.${params.sort_by}`;
       query.orderBy(sort, desc);
 

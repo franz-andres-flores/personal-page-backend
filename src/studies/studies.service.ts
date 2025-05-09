@@ -45,19 +45,19 @@ export class StudiesService {
         );
       }
 
-      if (params.active == 'true' && params.inactive == 'false') {
-        query.andWhere(`(s.isActive = :val)`, { val: true });
-      }
+      // if (params.active == 'true' && params.inactive == 'false') {
+      //   query.andWhere(`(s.isActive = :val)`, { val: true });
+      // }
 
-      if (params.inactive == 'true' && params.active == 'false') {
-        query.andWhere(`(s.isActive = :val1)`, { val1: false });
-      }
+      // if (params.inactive == 'true' && params.active == 'false') {
+      //   query.andWhere(`(s.isActive = :val1)`, { val1: false });
+      // }
 
-      if (params.inactive == 'true' && params.active == 'true') {
-        query.andWhere(`(s.isActive = :active OR s.isActive = :inactive)`, { active: true, inactive: false });
-      }
+      // if (params.inactive == 'true' && params.active == 'true') {
+      //   query.andWhere(`(s.isActive = :active OR s.isActive = :inactive)`, { active: true, inactive: false });
+      // }
 
-      const desc = (params.descending == 'true') ? 'DESC' : 'ASC';
+      const desc = (params.descending) ? 'DESC' : 'ASC';
       const sort = `s.${params.sort_by}`;
       query.orderBy(sort, desc);
 
