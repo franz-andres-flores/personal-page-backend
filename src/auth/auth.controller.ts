@@ -16,7 +16,7 @@ export class AuthController {
     description: 'Inicio de sesión',
     type: ResponseSignInDto
   })
-  signIn(signInDto: SignInDto) {
+  signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto);
   }
 

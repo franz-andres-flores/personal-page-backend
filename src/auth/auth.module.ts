@@ -22,7 +22,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         return {
           secret: configService.get<string>('JWT_SECRET'),
           signOptions: {
-            expiresIn: configService.get<string>('TOKEN_EXPIRATION')
+            expiresIn: configService.get<string>('JWT_EXPIRATION')
           }
         }
       }

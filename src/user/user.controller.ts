@@ -5,7 +5,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { SearchDto } from 'src/common/dtos';
-import { ResponseSearchUserDto, ResponseUserDto } from './dto/response-user.dto';
+import { ResponseListUserDto, ResponseSearchUserDto, ResponseUserDto } from './dto/response-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards';
 
 @ApiBearerAuth()
@@ -39,7 +39,7 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Buscar y paginar registros de usuario',
-    type: ResponseSearchUserDto
+    type: ResponseListUserDto
   })
   findAllExport() {
     return this.userService.findAllExport();

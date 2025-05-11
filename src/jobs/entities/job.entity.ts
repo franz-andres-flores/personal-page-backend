@@ -18,21 +18,21 @@ export class Job {
     @ApiProperty({ example: 'Desarrollador' })
     position: string;
 
-    @Column({ type: 'varchar', length: DBLength.name })
-    @ApiProperty({ example: 'Junio' })
-    start_month: string;
+    @Column({ type: 'int' })
+    @ApiProperty({ example: 2 })
+    start_month: number;
 
-    @Column({ type: 'varchar', length: DBLength.name })
-    @ApiProperty({ example: '2025' })
-    start_year: string;
+    @Column({ type: 'int' })
+    @ApiProperty({ example: 2025 })
+    start_year: number;
   
-    @Column({ type: 'varchar', length: DBLength.name, nullable: true })
-    @ApiPropertyOptional({ example: 'Noviembre' })
-    end_month: string;
+    @Column({ type: 'int', nullable: true })
+    @ApiPropertyOptional({ example: 10 })
+    end_month: number;
 
-    @Column({ type: 'varchar', length: DBLength.name, nullable: true })
-    @ApiPropertyOptional({ example: '2026' })
-    end_year: string;
+    @Column({ type: 'int', nullable: true })
+    @ApiPropertyOptional({ example: 2026 })
+    end_year: number;
 
     @Column({ type: 'text', nullable: true })
     @ApiPropertyOptional({ example: 'Descripción del trabajo' })

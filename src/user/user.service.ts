@@ -45,9 +45,9 @@ export class UserService {
       if (params.searcher != '') {
         query.andWhere(
           new Brackets((qb) => {
-            qb.where(`(MATCH (u.firstName) AGAINST (:search IN BOOLEAN MODE))`, { search: params.searcher + '*' })
-              .orWhere(`(MATCH (u.lastName) AGAINST (:search IN BOOLEAN MODE))`, { search: params.searcher + '*' })
-              .orWhere(`(MATCH (u.email) AGAINST (:search IN BOOLEAN MODE))`, { search: params.searcher + '*' });
+            qb.where(`(LOWER(u.firstName) LIKE LOWER(:search))`, { search: `%${params.searcher}%` })
+              .orWhere(`(LOWER(u.lastName) LIKE LOWER(:search))`, { search: `%${params.searcher}%` })
+              .orWhere(`(LOWER(u.email) LIKE LOWER(:search))`, { search: `%${params.searcher}%` });
           })
         );
       }

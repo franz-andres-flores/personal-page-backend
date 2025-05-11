@@ -15,5 +15,5 @@ export class ResponseListUserDto {
 
 export class ResponseSearchUserDto extends SearchResponseDto {
     @ApiProperty({ type: () => User })
-    user: User;
+    users: User[];
 }

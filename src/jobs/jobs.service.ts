@@ -44,17 +44,17 @@ export class JobsService {
         );
       }
 
-      // if (params.active == 'true' && params.inactive == 'false') {
-      //   query.andWhere(`(j.isActive = :val)`, { val: true });
-      // }
+      if (params.active && !params.inactive) {
+        query.andWhere(`(j.isActive = :val)`, { val: true });
+      }
 
-      // if (params.inactive == 'true' && params.active == 'false') {
-      //   query.andWhere(`(j.isActive = :val1)`, { val1: false });
-      // }
+      if (!params.active && params.inactive) {
+        query.andWhere(`(j.isActive = :val1)`, { val1: false });
+      }
 
-      // if (params.inactive == 'true' && params.active == 'true') {
-      //   query.andWhere(`(j.isActive = :active OR j.isActive = :inactive)`, { active: true, inactive: false });
-      // }
+      if (params.inactive && params.active) {
+        query.andWhere(`(j.isActive = :active OR j.isActive = :inactive)`, { active: true, inactive: false });
+      }
 
       const desc = (params.descending) ? 'DESC' : 'ASC';
       const sort = `j.${params.sort_by}`;
@@ -66,6 +66,22 @@ export class JobsService {
       ]);
 
       return { jobs, total };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async findAllExport() {
+    try {
+      const query = this.jobRepository.createQueryBuilder('j')
+        .select([
+          'j.id', 'j.company', 'j.position', 'j.start_month', 'j.start_year',
+          'j.end_month', 'j.end_year', 'j.description', 'j.isActive'
+        ]);
+
+      const jobs = await query.getMany();
+      return { jobs };
     } catch (error) {
       console.log(error);
       throw error;

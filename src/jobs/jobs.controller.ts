@@ -1,16 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, HttpStatus, UseGuards, Query, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, HttpStatus, Query, ParseIntPipe } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 
 import { JobsService } from './jobs.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
-import { Job } from './entities/job.entity';
 import { SearchDto } from 'src/common/dtos';
+import { ResponseJobDto, ResponseListJobDto, ResponseSearchJobDto } from './dto/response-job.dto';
 
 @ApiBearerAuth()
-@ApiTags("Trabajos")
-@UseGuards(AuthGuard('jwt'))
+@ApiTags("Empleo")
 @Controller('/jobs')
 export class JobsController {
   constructor(private readonly jobsService: JobsService) { }
@@ -18,8 +16,8 @@ export class JobsController {
   @Post('/create')
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: 'Crear trabajo',
-    type: Job
+    description: 'Crear empleo',
+    type: ResponseJobDto
   })
   create(@Body() createJobDto: CreateJobDto) {
     return this.jobsService.create(createJobDto);
@@ -28,19 +26,28 @@ export class JobsController {
   @Get('/search')
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'Búsqueda y pasginación de trabajos',
-    type: Job,
-    isArray: true
+    description: 'Buscar y paginar registros de empleo',
+    type: ResponseSearchJobDto
   })
   search(@Query() params: SearchDto) {
     return this.jobsService.search(params);
   }
 
+  @Get('/all-export')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Buscar y paginar registros de empleo',
+    type: ResponseListJobDto
+  })
+  findAllExport() {
+    return this.jobsService.findAllExport();
+  }
+
   @Patch('/update/:id')
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'Actualizar trabajo',
-    type: Job
+    description: 'Actualizar empleo',
+    type: ResponseJobDto
   })
   update(@Param('id', ParseIntPipe) id: number, @Body() updateJobDto: UpdateJobDto) {
     return this.jobsService.update(id, updateJobDto);
