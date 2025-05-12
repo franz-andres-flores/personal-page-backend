@@ -20,19 +20,23 @@ export class Job {
 
     @Column({ type: 'int' })
     @ApiProperty({ example: 2 })
-    start_month: number;
+    startMonth: number;
 
     @Column({ type: 'int' })
     @ApiProperty({ example: 2025 })
-    start_year: number;
+    startYear: number;
   
     @Column({ type: 'int', nullable: true })
     @ApiPropertyOptional({ example: 10 })
-    end_month: number;
+    endMonth: number;
 
     @Column({ type: 'int', nullable: true })
     @ApiPropertyOptional({ example: 2026 })
-    end_year: number;
+    endYear: number;
+
+    @Column({ type: 'boolean', default: false })
+    @ApiPropertyOptional({ example: true, default: true })
+    isCurrentJob: boolean;
 
     @Column({ type: 'text', nullable: true })
     @ApiPropertyOptional({ example: 'Descripción del trabajo' })

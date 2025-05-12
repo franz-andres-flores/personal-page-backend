@@ -14,29 +14,33 @@ export class CreateJobDto {
     @ApiProperty({ example: 'Desarrollador' })
     position: string;
 
+    @IsOptional()
+    @ApiPropertyOptional({ example: true, default: true })
+    isCurrentJob: boolean;
+
     @IsNotEmpty({ message: requiredMessage('mes inicio') })
     @IsInt()
     @Type(() => Number)
     @ApiProperty({ example: 2 })
-    start_month: number;
+    startMonth: number;
 
     @IsNotEmpty({ message: requiredMessage('año inicio') })
     @IsInt()
     @Type(() => Number)
     @ApiProperty({ example: 2025 })
-    start_year: number;
+    startYear: number;
 
     @IsOptional()
     @IsInt()
     @Type(() => Number)
     @ApiPropertyOptional({ example: 'Noviembre' })
-    end_month: number;
+    endMonth: number;
 
     @IsOptional()
     @IsInt()
     @Type(() => Number)
     @ApiProperty({ example: '2026' })
-    end_year: number;
+    endYear: number;
 
     @IsOptional()
     @ApiPropertyOptional({ example: 'Descripción del trabajo' })
