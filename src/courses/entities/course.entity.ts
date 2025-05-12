@@ -27,11 +27,11 @@ export class Course {
 
     @Column({ type: 'varchar', length: DBLength.path, nullable: true })
     @ApiPropertyOptional({ example: '/assets/courses' })
-    certificate_path: string;
+    certificatePath: string;
 
     @Column({ type: 'varchar', length: DBLength.name, nullable: true })
     @ApiPropertyOptional({ example: 'nest.pdf' })
-    certicate_name: string;
+    certicateName: string;
 
     @Column({ type: 'boolean', default: true })
     @ApiPropertyOptional({ example: true, default: true })

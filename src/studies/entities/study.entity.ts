@@ -35,11 +35,11 @@ export class Study {
 
     @Column({ type: 'varchar', length: DBLength.path, nullable: true })
     @ApiPropertyOptional({ example: '/assets/studies' })
-    certificate_path: string;
+    certificatePath: string;
 
     @Column({ type: 'varchar', length: DBLength.name, nullable: true })
     @ApiPropertyOptional({ example: 'degree.pdf' })
-    certicate_name: string;
+    certicateName: string;
 
     @Column({ type: 'boolean', default: true })
     @ApiPropertyOptional({ example: true, default: true })

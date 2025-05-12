@@ -32,29 +32,30 @@ export class CoursesService {
 
       const query = this.courseRepository.createQueryBuilder('c')
         .select([
-          'c.id', 'c.title', 'c.school', 'c.date', 'c.description', 'c.isActive'
+          'c.id', 'c.institution', 'c.title', 'c.date', 'c.description',
+          'c.certificatePath', 'c.certicateName', 'c.isActive'
         ]);
 
       if (params.searcher != '') {
         query.andWhere(
           new Brackets((qb) => {
-            qb.where(`(LOWER(c.title) LIKE LOWER(:search))`, { search: `%${params.searcher}%` })
+            qb.where(`(LOWER(c.institution) LIKE LOWER(:search))`, { search: `%${params.searcher}%` })
               .orWhere(`(LOWER(c.title) LIKE LOWER(:search))`, { search: `%${params.searcher}%` });
           })
         );
       }
 
-      // if (params.active == 'true' && params.inactive == 'false') {
-      //   query.andWhere(`(c.isActive = :val)`, { val: true });
-      // }
+      if (params.active && !params.inactive) {
+        query.andWhere(`(c.isActive = :val)`, { val: true });
+      }
 
-      // if (params.inactive == 'true' && params.active == 'false') {
-      //   query.andWhere(`(c.isActive = :val1)`, { val1: false });
-      // }
+      if (!params.active && params.inactive) {
+        query.andWhere(`(c.isActive = :val1)`, { val1: false });
+      }
 
-      // if (params.inactive == 'true' && params.active == 'true') {
-      //   query.andWhere(`(c.isActive = :active OR c.isActive = :inactive)`, { active: true, inactive: false });
-      // }
+      if (params.inactive && params.active) {
+        query.andWhere(`(c.isActive = :active OR c.isActive = :inactive)`, { active: true, inactive: false });
+      }
 
       const desc = (params.descending) ? 'DESC' : 'ASC';
       const sort = `c.${params.sort_by}`;
@@ -66,6 +67,22 @@ export class CoursesService {
       ]);
 
       return { courses, total };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async findAllExport() {
+    try {
+      const query = this.courseRepository.createQueryBuilder('c')
+        .select([
+          'c.id', 'c.institution', 'c.title', 'c.date', 'c.description',
+          'c.certificatePath', 'c.certicateName', 'c.isActive'
+        ]);
+
+      const courses = await query.getMany();
+      return { courses };
     } catch (error) {
       console.log(error);
       throw error;

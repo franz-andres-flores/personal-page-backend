@@ -32,8 +32,8 @@ export class StudiesService {
 
       const query = this.studyRepository.createQueryBuilder('s')
         .select([
-          's.id', 's.institution', 's.degree', 's.start_year', 's.end_year',
-          's.certificate_path', 's.certicate_name', 's.description', 's.isActive'
+          's.id', 's.institution', 's.degree', 's.startYear', 's.endYear',
+          's.certificatePath', 's.certicateName', 's.description', 's.isActive'
         ]);
 
       if (params.searcher != '') {
@@ -77,8 +77,8 @@ export class StudiesService {
     try {
       const query = this.studyRepository.createQueryBuilder('s')
         .select([
-          's.id', 's.institution', 's.degree', 's.start_year', 's.end_year',
-          's.certificate_path', 's.certicate_name', 's.description', 's.isActive'
+          's.id', 's.institution', 's.degree', 's.startYear', 's.endYear',
+          's.certificatePath', 's.certicateName', 's.description', 's.isActive'
         ]);
 
       const studies = await query.getMany();
