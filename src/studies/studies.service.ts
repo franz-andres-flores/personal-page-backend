@@ -32,30 +32,30 @@ export class StudiesService {
 
       const query = this.studyRepository.createQueryBuilder('s')
         .select([
-          's.id', 's.school', 's.carrer', 's.start_year', 's.end_year',
-          's.description', 's.isActive'
+          's.id', 's.institution', 's.degree', 's.start_year', 's.end_year',
+          's.certificate_path', 's.certicate_name', 's.description', 's.isActive'
         ]);
 
       if (params.searcher != '') {
         query.andWhere(
           new Brackets((qb) => {
-            qb.where(`(LOWER(s.school) LIKE LOWER(:search))`, { search: `%${params.searcher}%` })
-              .orWhere(`(LOWER(s.carrer) LIKE LOWER(:search))`, { search: `%${params.searcher}%` });
+            qb.where(`(LOWER(s.institution) LIKE LOWER(:search))`, { search: `%${params.searcher}%` })
+              .orWhere(`(LOWER(s.degree) LIKE LOWER(:search))`, { search: `%${params.searcher}%` });
           })
         );
       }
 
-      // if (params.active == 'true' && params.inactive == 'false') {
-      //   query.andWhere(`(s.isActive = :val)`, { val: true });
-      // }
+      if (params.active && !params.inactive) {
+        query.andWhere(`(s.isActive = :val)`, { val: true });
+      }
 
-      // if (params.inactive == 'true' && params.active == 'false') {
-      //   query.andWhere(`(s.isActive = :val1)`, { val1: false });
-      // }
+      if (!params.active && params.active) {
+        query.andWhere(`(s.isActive = :val1)`, { val1: false });
+      }
 
-      // if (params.inactive == 'true' && params.active == 'true') {
-      //   query.andWhere(`(s.isActive = :active OR s.isActive = :inactive)`, { active: true, inactive: false });
-      // }
+      if (params.inactive && params.active) {
+        query.andWhere(`(s.isActive = :active OR s.isActive = :inactive)`, { active: true, inactive: false });
+      }
 
       const desc = (params.descending) ? 'DESC' : 'ASC';
       const sort = `s.${params.sort_by}`;
@@ -67,6 +67,22 @@ export class StudiesService {
       ]);
 
       return { studies, total };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async findAllExport() {
+    try {
+      const query = this.studyRepository.createQueryBuilder('s')
+        .select([
+          's.id', 's.institution', 's.degree', 's.start_year', 's.end_year',
+          's.certificate_path', 's.certicate_name', 's.description', 's.isActive'
+        ]);
+
+      const studies = await query.getMany();
+      return { studies };
     } catch (error) {
       console.log(error);
       throw error;

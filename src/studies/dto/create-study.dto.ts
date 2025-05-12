@@ -13,12 +13,16 @@ export class CreateStudyDto {
     degree: string;
 
     @IsNotEmpty({ message: requiredMessage('año de inicio') })
-    @ApiProperty({ example: '2025' })
-    start_year: string;
+    @ApiProperty({ example: 2025 })
+    startYear: number;
 
     @IsOptional()
-    @ApiPropertyOptional({ example: '2026' })
-    end_year: string;
+    @ApiPropertyOptional({ example: true, default: true })
+    isCurrentStudy: boolean;
+
+    @IsOptional()
+    @ApiPropertyOptional({ example: 2026 })
+    endYear: number;
 
     @IsOptional()
     @ApiPropertyOptional({ example: 'Descripción de la carrera o estudio realizado' })

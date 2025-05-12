@@ -17,13 +17,17 @@ export class Study {
     @ApiProperty({ example: 'Ingeniería en Sistemas' })
     degree: string;
 
-    @Column({ type: 'varchar', length: DBLength.name })
-    @ApiProperty({ example: '2025' })
-    start_year: string;
+    @Column({ type: 'int' })
+    @ApiProperty({ example: 2025 })
+    startYear: number;
 
-    @Column({ type: 'varchar', length: DBLength.name, nullable: true })
-    @ApiPropertyOptional({ example: '2026' })
-    end_year: string;
+    @Column({ type: 'int', nullable: true })
+    @ApiPropertyOptional({ example: 2026 })
+    endYear: number;
+
+    @Column({ type: 'boolean', default: false })
+    @ApiPropertyOptional({ example: true, default: true })
+    isCurrentStudy: boolean;
 
     @Column({ type: 'text', nullable: true })
     @ApiPropertyOptional({ example: 'Descripción de la carrera o estudio realizado' })

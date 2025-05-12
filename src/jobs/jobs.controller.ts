@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, HttpStatus, Query, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, HttpStatus, Query, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { JobsService } from './jobs.service';
@@ -6,9 +6,11 @@ import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { SearchDto } from 'src/common/dtos';
 import { ResponseJobDto, ResponseListJobDto, ResponseSearchJobDto } from './dto/response-job.dto';
+import { JwtAuthGuard } from 'src/auth/guards';
 
 @ApiBearerAuth()
 @ApiTags("Empleo")
+@UseGuards(JwtAuthGuard)
 @Controller('/jobs')
 export class JobsController {
   constructor(private readonly jobsService: JobsService) { }
@@ -36,7 +38,7 @@ export class JobsController {
   @Get('/all-export')
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'Buscar y paginar registros de empleo',
+    description: 'Obtener registros de empleo para exportación',
     type: ResponseListJobDto
   })
   findAllExport() {
