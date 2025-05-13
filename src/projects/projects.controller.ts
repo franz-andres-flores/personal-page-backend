@@ -50,13 +50,13 @@ export class ProjectsController {
     return this.projectsService.findAllExport();
   }
 
-
   @Patch('/update/:id')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Actualizar proyecto',
     type: ResponseProjectDto
   })
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'images', maxCount: 5 }]))
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateProjectDto: UpdateProjectDto,
