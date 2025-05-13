@@ -14,7 +14,7 @@ export class Project {
     @ApiProperty({ example: 'Proyecto de página personal' })
     name: string;
 
-    @Column({ type: 'text', nullable: true })
+    @Column({ type: 'text' })
     @ApiPropertyOptional({ example: 'Descripción del proyecto realizado' })
     description: string;
 
@@ -24,11 +24,11 @@ export class Project {
 
     @Column({ type: 'varchar', length: DBLength.path })
     @ApiPropertyOptional({ example: 'https://github.com' })
-    url_repository: string;
+    urlRepository: string;
 
     @Column({ type: 'json', nullable: true })
     @ApiPropertyOptional({ example: '[{ image: "project1.jpg", imagePublicId: "code-cloudinary" }]' })
-    images: ProjectImage;
+    images:  ProjectImage[];
 
     @Column({ type: 'boolean', default: true })
     @ApiPropertyOptional({ example: true, default: true })

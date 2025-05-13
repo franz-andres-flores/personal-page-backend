@@ -13,12 +13,14 @@ import { ProjectsModule } from './projects/projects.module';
 import { SectionModule } from './section/section.module';
 import { PublicationsModule } from './publications/publications.module';
 import { BlocksModule } from './blocks/blocks.module';
+import { CloudinaryModule } from './common/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     DatabaseMysqlProviderModule,
     AuthorizationJWTProvider,
+    CloudinaryModule,
     
     AuthModule,
     UserModule,

@@ -1,34 +1,67 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, UseInterceptors, UploadedFiles, ParseIntPipe, UseGuards, HttpStatus, Query } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { JwtAuthGuard } from 'src/auth/guards';
+import { ResponseListProjectDto, ResponseProjectDto, ResponseSearchProjectDto } from './dto/response-project.dto';
+import { SearchDto } from 'src/common/dtos';
 
-@Controller('projects')
+@ApiBearerAuth()
+@ApiTags("Proyectos")
+@UseGuards(JwtAuthGuard)
+@Controller('/projects')
 export class ProjectsController {
-  constructor(private readonly projectsService: ProjectsService) {}
+  constructor(private readonly projectsService: ProjectsService) { }
 
-  @Post()
-  create(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectsService.create(createProjectDto);
+  @Post('/create')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Crear proyecto',
+    type: ResponseProjectDto
+  })
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'images', maxCount: 5 }]))
+  create(
+    @Body() createProjectDto: CreateProjectDto,
+    @UploadedFiles() files: { images?: Express.Multer.File[] }
+  ) {
+    return this.projectsService.create(createProjectDto, files.images || []);
   }
 
-  @Get()
-  findAll() {
-    return this.projectsService.findAll();
+  @Get('/search')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Buscar y paginar registros de proyecto',
+    type: ResponseSearchProjectDto
+  })
+  search(@Query() params: SearchDto) {
+    return this.projectsService.search(params);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.projectsService.findOne(+id);
+  @Get('/all-export')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Obtener registros de proyectos para exportación',
+    type: ResponseListProjectDto
+  })
+  findAllExport() {
+    return this.projectsService.findAllExport();
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
-    return this.projectsService.update(+id, updateProjectDto);
-  }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.projectsService.remove(+id);
+  @Patch('/update/:id')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Actualizar proyecto',
+    type: ResponseProjectDto
+  })
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateProjectDto: UpdateProjectDto,
+    @UploadedFiles() files: { images?: Express.Multer.File[] }
+  ) {
+    return this.projectsService.update(id, updateProjectDto, files.images);
   }
 }
