@@ -1,4 +1,3 @@
-
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
@@ -42,7 +41,7 @@ export class Block {
     imagePublicId: string;
 
     @Column({ type: 'json', nullable: true })
-    @ApiPropertyOptional({ example: "{align:1, width:100, height:100 }" })
+    @ApiPropertyOptional({ example: "{ align:1, width:100, height:100 }" })
     details: BlockDetails;
 
     @Column({ type: 'boolean', default: true })

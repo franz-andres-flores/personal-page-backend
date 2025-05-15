@@ -16,12 +16,14 @@ export class CategoriesService {
     private readonly cloudinaryService: CloudinaryService
   ) { }
 
-  async create(createCategoryDto: CreateCategoryDto, file: Express.Multer.File) {
+  async create(createCategoryDto: CreateCategoryDto, file?: Express.Multer.File) {
     try {
       const category = this.categoryRepository.create(createCategoryDto);
-      const imageCloudinary = await this.cloudinaryService.uploadFile(file, 'image');
-      category.image = imageCloudinary.secure_url;
-      category.imagePublicId = imageCloudinary.public_id;
+      if (file) {
+        const imageCloudinary = await this.cloudinaryService.uploadFile(file, 'image');
+        category.image = imageCloudinary.secure_url;
+        category.imagePublicId = imageCloudinary.public_id;
+      }
 
       await this.categoryRepository.save(category);
 
@@ -104,7 +106,7 @@ export class CategoriesService {
           category.image = imageCloudinary.secure_url;
           category.imagePublicId = imageCloudinary.public_id;
         }
-       
+
         await this.categoryRepository.save(category);
         return { category };
       }
