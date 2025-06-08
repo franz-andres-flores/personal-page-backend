@@ -6,6 +6,7 @@ import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
 import { Section } from './entities/section.entity';
 import { SearchDto } from 'src/common/dtos';
+import { SearchSectionDto } from './dto/get-section.dto';
 
 @Injectable()
 export class SectionService {
@@ -26,16 +27,16 @@ export class SectionService {
     }
   }
 
-  async search(params: SearchDto) {
+  async search(params: SearchSectionDto) {
     try {
       const skip = (params.page - 1) * params.pageSize;
 
       const query = this.sectionRepository.createQueryBuilder('s')
         .leftJoinAndSelect('s.category', 'c')
         .select([
-          's.id', 's.name', 's.description', 's.isActive',
-          'c.id', 'c.name'
-        ]);
+          's.id', 's.name', 's.description', 's.isActive', 'c.id', 'c.name'
+        ])
+        .where('(c.id = :category)', { category: params.category_id });
 
       if (params.searcher != '') {
         query.andWhere(

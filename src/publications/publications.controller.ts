@@ -7,6 +7,7 @@ import { UpdatePublicationDto } from './dto/update-publication.dto';
 import { JwtAuthGuard } from 'src/auth/guards';
 import { ResponseListPublicationDto, ResponsePublicationDto, ResponseSearchPublicationDto } from './dto/response-publication.dto';
 import { SearchDto } from 'src/common/dtos';
+import { SearchPublicationDto } from './dto/get-publication.dto';
 
 @ApiBearerAuth()
 @ApiTags("Publicaciones")
@@ -31,7 +32,7 @@ export class PublicationsController {
     description: 'Buscar y paginar registros de publicación',
     type: ResponseSearchPublicationDto
   })
-  findAll(@Query() params: SearchDto) {
+  findAll(@Query() params: SearchPublicationDto) {
     return this.publicationsService.search(params);
   }
 

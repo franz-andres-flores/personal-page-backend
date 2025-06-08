@@ -6,6 +6,7 @@ import { CreatePublicationDto } from './dto/create-publication.dto';
 import { UpdatePublicationDto } from './dto/update-publication.dto';
 import { Publication } from './entities/publication.entity';
 import { SearchDto } from 'src/common/dtos';
+import { SearchPublicationDto } from './dto/get-publication.dto';
 
 @Injectable()
 export class PublicationsService {
@@ -26,14 +27,15 @@ export class PublicationsService {
     }
   }
 
-  async search(params: SearchDto) {
+  async search(params: SearchPublicationDto) {
     try {
       const skip = (params.page - 1) * params.pageSize;
 
       const query = this.publicationRepository.createQueryBuilder('p')
         .select([
           'p.id', 'p.name', 'p.date', 'p.description', 'p.isActive'
-        ]);
+        ])
+        .where('(p.section_id = :section)', { section: params.section_id });
 
       if (params.searcher != '') {
         query.andWhere(

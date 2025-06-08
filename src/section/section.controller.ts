@@ -7,13 +7,14 @@ import { UpdateSectionDto } from './dto/update-section.dto';
 import { JwtAuthGuard } from 'src/auth/guards';
 import { ResponseListSectionDto, ResponseSearchSectionDto, ResponseSectionDto } from './dto/response-section.dto';
 import { SearchDto } from 'src/common/dtos';
+import { SearchSectionDto } from './dto/get-section.dto';
 
 @ApiBearerAuth()
 @ApiTags("Secciones")
 @UseGuards(JwtAuthGuard)
 @Controller('/section')
 export class SectionController {
-  constructor(private readonly sectionService: SectionService) {}
+  constructor(private readonly sectionService: SectionService) { }
 
   @Post('/create')
   @ApiResponse({
@@ -31,7 +32,7 @@ export class SectionController {
     description: 'Buscar y paginar registros de secciones',
     type: ResponseSearchSectionDto
   })
-  search(@Query() params: SearchDto) {
+  search(@Query() params: SearchSectionDto) {
     return this.sectionService.search(params);
   }
 
